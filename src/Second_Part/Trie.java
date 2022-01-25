@@ -1,27 +1,36 @@
 package Second_Part;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Trie {
     TrieNode root;
-    public Trie(List<String> words) {
+    public Trie(String path) {
         root = new TrieNode();
+        List<String> words = fileHandler(path);
         for (int i = 0; i < words.size() ; i++) {
             root.insert(words.get(i));
         }
     }
-
-    public boolean find(String prefix, boolean exact) {
-        TrieNode lastNode = root;
-        for (char c : prefix.toCharArray()) {
-            lastNode = lastNode.children.get(c);
-            if (lastNode == null)
-                return false;
+    public List fileHandler(String path) {
+        List<String> words = new ArrayList<>();
+        File file = new File(path);
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            while (true) {
+                String line = reader.readLine();
+                if (line == null) {
+                    break;
+                }else {
+                    words.add(line);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return !exact || lastNode.isWord;
-    }
-
-    public boolean find(String prefix) {
-        return find(prefix, false);
+        return words;
     }
 
     public void handler(TrieNode root, String[] list, StringBuffer curr) {
