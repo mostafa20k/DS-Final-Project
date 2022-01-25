@@ -1,9 +1,5 @@
 package Second_Part;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,19 +32,5 @@ public class TrieNode {
             child.isWord = true;
     }
 
-    public void fileHandler(String path) {
-        File file = new File(path);
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            while (true) {
-                String line = reader.readLine();
-                if (line == null) {
-                    break;
-                }else {
-                    insert(line);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 }
