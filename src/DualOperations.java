@@ -29,7 +29,7 @@ public class DualOperations {
         int count=-1;
         if (root == null)
             return ' ';
-        Stack<Node> s = new Stack<Node>();
+        Stack<Node> s = new Stack<>();
         Node curr = root;
         while (curr != null || s.size() > 0) {
             while (curr != null) {
@@ -77,7 +77,7 @@ public class DualOperations {
         Node root = ropes.get(stringNum-1).getRoot();
         if (root == null)
             return;
-        Stack<Node> s = new Stack<Node>();
+        Stack<Node> s = new Stack<>();
         Node curr = root;
         while (curr != null || s.size() > 0) {
             while (curr !=  null)

@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         DualOperations ropes = new DualOperations();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("please enter the path of your tries file: ");
+        System.out.println("Please enter the path of your tries file: ");
         String path = scanner.nextLine();
         Trie trie = new Trie(path);
         while (true){
