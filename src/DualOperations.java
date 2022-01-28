@@ -108,8 +108,8 @@ public class DualOperations {
         ropes.add(stringNum,rope1);
     }
     public void delete(int stringNum, int i, int j){
-        split(stringNum,i);
-        split(stringNum+1,j-i-2);
+        split(stringNum,i-1);
+        split(stringNum+1,j-i-1);
         ropes.remove(stringNum);
         concat(stringNum,stringNum+1);
     }

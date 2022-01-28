@@ -46,7 +46,7 @@ public class Main {
                 ropes.delete(inputs.get(0),inputs.get(1),inputs.get(2));
             }else if(input.contains("autocomplete")){
                 input=input.replaceAll(" ","");
-                trie.autocomplete(input.charAt(12));
+                System.out.println(trie.autocomplete(input.charAt(12)));
             }else if (input.matches("[0-9]+")){
                 try {
                     String newRope = trie.getList(Integer.parseInt(input));
