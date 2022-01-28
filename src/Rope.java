@@ -14,8 +14,11 @@ public class Rope {
     }
 
     public void newRope(String input) {
-        for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) == ' ' || input.length() - 1 == i) {
+        for (int i = 0; i <= input.length(); i++) {
+            if(i==input.length()){
+                construct(String.valueOf(input.charAt(i-1)));
+            }
+            else if (input.charAt(i) == ' ' || input.length()-1  == i) {
                 StringBuilder stringBuilder = new StringBuilder(input);
                 construct(stringBuilder.substring(0, i + 1));
                 input = stringBuilder.substring(i + 1);
