@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Trie {
+    String[] list =new String[3];
     TrieNode root;
     public Trie(String path) {
         root = new TrieNode();
@@ -15,6 +16,14 @@ public class Trie {
             root.insert(words.get(i));
         }
     }
+
+    public String getList(int number) throws InvalidException {
+
+        if(number>0 && list[number-1]!=null){
+            return list[number-1];
+        }throw new InvalidException();
+    }
+
     public List fileHandler(String path) {
         List<String> words = new ArrayList<>();
         File file = new File(path);
@@ -52,8 +61,7 @@ public class Trie {
         }
     }
 
-    public String autocomplete(char prefix,int number) {
-        String[] list =new String[3];
+    public String autocomplete(char prefix) {
         TrieNode lastNode = root;
         StringBuffer curr = new StringBuffer();
         lastNode = lastNode.children.get(prefix);
@@ -61,9 +69,6 @@ public class Trie {
             return toString(list);
         curr.append(prefix);
         handler(lastNode, list, curr);
-        if(number>0 && list[number-1]!=null){
-            return list[number-1];
-        }
         return toString(list);
     }
     public String toString(String[] list){
