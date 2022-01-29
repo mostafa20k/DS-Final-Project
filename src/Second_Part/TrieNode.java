@@ -7,7 +7,7 @@ public class TrieNode {
     Map<Character, TrieNode> children;
     char c;
     boolean isWord;
-
+    int priority;
     public TrieNode(char c) {
         this.c = c;
         children = new HashMap<>();
