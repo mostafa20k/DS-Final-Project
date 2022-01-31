@@ -1,4 +1,5 @@
 package Second_Part;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -7,21 +8,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Trie {
-    String[] list =new String[3];
-    TrieNode root;
+    private String[] list = new String[3];
+    private TrieNode root;
+    private PriorityQueue suggestion = new PriorityQueue();
+
     public Trie(String path) {
         root = new TrieNode();
         List<String> words = fileHandler(path);
-        for (int i = 0; i < words.size() ; i++) {
-            root.insert(words.get(i));
+        for (String word : words) {
+            root.insert(word);
         }
     }
 
     public String getList(int number) throws InvalidException {
+        if (number > 0 && list[number - 1] != null) {
+            int priority = find(list[number - 1]);
 
-        if(number>0 && list[number-1]!=null){
-            return list[number-1];
-        }throw new InvalidException();
+            suggestion.deleteNode(list[number - 1]);
+            suggestion.push(list[number - 1], priority);
+
+            return list[number - 1];
+        }
+        throw new InvalidException();
+    }
+
+    public int find(String prefix) {
+        TrieNode lastNode = root;
+        for (char c : prefix.toCharArray()) {
+            lastNode = lastNode.children.get(c);
+            if (lastNode == null)
+                return -1;
+        }
+        if (lastNode.isWord) {
+            return lastNode.priority++;
+        }
+        return -1;
+    }
+
+    public void printSuggestion() {
+        suggestion.printPQ();
     }
 
     public List fileHandler(String path) {
@@ -32,8 +57,9 @@ public class Trie {
                 String line = reader.readLine();
                 if (line == null) {
                     break;
-                }else {
+                } else {
                     words.add(line);
+                    suggestion.push(line, 0);
                 }
             }
         } catch (IOException e) {
@@ -43,7 +69,7 @@ public class Trie {
     }
 
     public void handler(TrieNode root, String[] list, StringBuffer curr) {
-        if(root.isWord) {
+        if (root.isWord) {
             for (int i = 0; i < 3; i++) {
                 if (list[i] == null) {
                     list[i] = curr.toString();
@@ -71,13 +97,13 @@ public class Trie {
         handler(lastNode, list, curr);
         return toString(list);
     }
-    public String toString(String[] list){
+
+    public String toString(String[] list) {
         StringBuffer sb = new StringBuffer();
-        for(int i = 0; i < list.length; i++) {
-            sb.append(i+1+". "+ list[i]+ "\n");
+        for (int i = 0; i < list.length; i++) {
+            sb.append(i + 1 + ". " + list[i] + "\n");
         }
-        String str = sb.toString();
-        return str;
+        return sb.toString();
     }
 }
 
